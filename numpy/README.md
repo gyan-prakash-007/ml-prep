@@ -272,17 +272,3 @@ print(rng.choice(fruits, size=(3, 2)))
 
 ---
 
-## Revision checklist
-
-- [ ] can create 1D / 2D / 3D arrays and explain shape vs ndim
-- [ ] comfortable with row and column slicing, including negative steps
-- [ ] know the difference between scalar arithmetic and element-wise arithmetic
-- [ ] can explain broadcasting rules from memory (dimensions match or one is 1)
-- [ ] know axis=0 vs axis=1 without having to check
-- [ ] can filter with boolean masks and know it flattens the array
-- [ ] know when to use `np.where` instead of plain boolean indexing (keeps shape)
-- [ ] used `default_rng()` at least once instead of the old `np.random.seed()` style
-
----
-
-Next up: pandas
