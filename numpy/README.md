@@ -257,18 +257,55 @@ This keeps every value that passes the condition, and replaces the rest with 0 w
 
 ## Random numbers
 
+The modern way to generate random numbers in numpy is through a `Generator` object made with `default_rng()`. Passing a `seed` makes the randomness reproducible, useful when you want the same "random" output every time you rerun the code (debugging, tutorials, etc).
+
 ```python
 rng = np.random.default_rng(seed=1)
 print(rng.integers(low=1, high=109, size=(3, 2)))
-
-rng.shuffle(array)  # shuffles in place
-
-fruits = np.array(["apple", "orange", "banana", "coconut"])
-print(rng.choice(fruits, size=(3, 2)))
+```
+```
+[[ 52  56]
+ [ 82 103]
+ [  4  16]]
 ```
 
-- `default_rng()` is the modern way to generate random numbers in numpy (the newer Generator API), old-school `np.random.seed()` + `np.random.uniform()` still works but generator style is preferred now
-- passing a `seed` makes the randomness reproducible, useful for debugging
+The older style still works too, `np.random.seed()` followed by functions like `np.random.uniform()`:
 
----
+```python
+np.random.seed(1)
+print(np.random.uniform(low=-1, high=1, size=(3, 2)))
+```
+```
+[[-0.16595599  0.44064899]
+ [-0.99977125 -0.39533485]
+ [-0.70648822 -0.81532281]]
+```
 
+**Shuffle:** rearranges an array's elements randomly, in place (no return value, the original array itself changes).
+
+```python
+rng = np.random.default_rng()
+array = np.array([1, 2, 3, 4, 5])
+rng.shuffle(array)
+print(array)
+```
+```
+[3 5 4 1 2]
+```
+
+**Random choice:** picks random elements from an array, `size` controls the shape of the output.
+
+```python
+fruits = np.array(["apple", "orange", "banana", "coconut"])
+fruit = rng.choice(fruits, size=(3, 2))
+print(fruit)
+```
+```
+[['apple' 'coconut']
+ ['banana' 'orange']
+ ['coconut' 'banana']]
+```
+
+- `default_rng()` (Generator API) is the newer, preferred way over the old `np.random.seed()` style
+- `shuffle()` mutates the array directly, doesn't return a new one
+- `choice()` can pull duplicates by default unless you tell it otherwise
