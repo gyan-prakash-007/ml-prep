@@ -295,3 +295,49 @@ def big_countries(world: pd.DataFrame) -> pd.DataFrame:
 ```
 
 A country counts as "big" if population is at least 25,000,000 **or** area is at least 3,000,000. Straightforward use of the `|` operator covered above, filter first with the OR condition, then select just the columns the problem wants.
+
+### [2879. Display the First Three Rows](./LC_Questions/2879_select_first_rows.py)
+
+```python
+def selectFirstRows(employees: pd.DataFrame) -> pd.DataFrame:
+    return employees.head(3)
+```
+
+`.head(n)` grabs the first n rows, the pandas equivalent of `LIMIT 3` in SQL. About as simple as these problems get.
+
+### [2880. Select Data](./LC_Questions/2880_select_data.py)
+
+```python
+def selectData(students: pd.DataFrame) -> pd.DataFrame:
+    return students[students['student_id'] == 101][['name', 'age']]
+```
+
+Filter rows first with a condition, then chain `[[...]]` to select just the columns you want, same pattern from the selection table earlier, just filter + column select combined in one line.
+
+### [2881. Create a New Column](./LC_Questions/2881_create_bonus_column.py)
+
+```python
+def createBonusColumn(employees: pd.DataFrame) -> pd.DataFrame:
+    employees["bonus"] = employees['salary'] * 2
+    return employees
+```
+
+Assigning to a new column key adds it to the dataframe, same pattern as the `df["job"] = [...]` example earlier in these notes.
+
+### [2882. Drop Duplicate Rows](./LC_Questions/2882_drop_duplicate_emails.py)
+
+```python
+def dropDuplicateEmails(customers: pd.DataFrame) -> pd.DataFrame:
+    return customers.drop_duplicates(subset='email')
+```
+
+Same `drop_duplicates()` from the data cleaning section, just scoped to one column with `subset`, so duplicates are judged only by email instead of the whole row.
+
+### [2883. Drop Missing Data](./LC_Questions/2883_drop_missing_data.py)
+
+```python
+def dropMissingData(students: pd.DataFrame) -> pd.DataFrame:
+    return students.dropna(subset='name')
+```
+
+Same idea as `dropna()` from the cleaning section, `subset` limits the missing-value check to just the `name` column instead of scanning the whole dataframe.
