@@ -25,7 +25,7 @@ Structure isn't locked in from day one, folders get added as I actually get to e
 | topic | source | status |
 |---|---|---|
 | [numpy](./numpy) | Bro Code | done |
-| pandas | Bro Code + 15 Days of Pandas (LeetCode) | up next |
+| [pandas](./pandas) | Bro Code + Introduction to Pandas (LeetCode) | in progress |
 
 More topics get added here as I actually get to them.
 
