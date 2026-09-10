@@ -8,6 +8,7 @@
   <img src="https://img.shields.io/badge/topic-pandas-8A2BE2?style=for-the-badge" />
   <img src="https://img.shields.io/badge/source-Bro%20Code-9370DB?style=for-the-badge" />
   <img src="https://img.shields.io/badge/status-in%20progress-BA55D3?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/LeetCode-Introduction%20to%20Pandas-9932CC?style=for-the-badge" />
 </p>
 
 > Still in progress. Covers series, dataframes, filtering, aggregate functions, groupby, and data cleaning so far. Will keep expanding as I get further into the video.
@@ -341,3 +342,92 @@ def dropMissingData(students: pd.DataFrame) -> pd.DataFrame:
 ```
 
 Same idea as `dropna()` from the cleaning section, `subset` limits the missing-value check to just the `name` column instead of scanning the whole dataframe.
+
+### [2884. Modify Columns](./LC_Questions/2884_modify_salary_column.py)
+
+```python
+def modifySalaryColumn(employees: pd.DataFrame) -> pd.DataFrame:
+    employees['salary'] = employees['salary'] * 2
+    return employees
+```
+
+Same column reassignment pattern as before, just overwriting an existing column instead of creating a new one.
+
+### [2885. Rename Columns](./LC_Questions/2885_rename_columns.py)
+
+`.rename(columns={...})` takes a dict mapping old column names to new ones and returns a dataframe with those columns renamed. Doesn't touch any other column.
+
+```python
+def renameColumns(students: pd.DataFrame) -> pd.DataFrame:
+    return students.rename(columns={'id': 'student_id',
+                                     'first': 'first_name',
+                                     'last': 'last_name',
+                                     'age': 'age_in_years'})
+```
+
+### [2886. Change Data Type](./LC_Questions/2886_change_datatype.py)
+
+```python
+def changeDatatype(students: pd.DataFrame) -> pd.DataFrame:
+    students['grade'] = students['grade'].astype(int)
+    return students
+```
+
+Same `.astype()` used earlier to convert `Legendary` to bool, here converting a column to `int` instead.
+
+### [2887. Fill Missing Data](./LC_Questions/2887_fill_missing_values.py)
+
+```python
+def fillMissingValues(products: pd.DataFrame) -> pd.DataFrame:
+    products['quantity'] = products['quantity'].fillna(0)
+    return products
+```
+
+Same `.fillna()` from the cleaning section, this time filling a single column directly with a scalar (0) instead of passing a dict of column-to-value mappings.
+
+### [2888. Reshape Data: Concatenate](./LC_Questions/2888_concatenate_tables.py)
+
+```python
+def concatenateTables(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
+    df1 = pd.concat([df1, df2])
+    return df1
+```
+
+Same `pd.concat()` used to add new rows earlier, just stacking two full dataframes on top of each other here instead of a dataframe and a couple of new rows.
+
+### [2889. Reshape Data: Pivot](./LC_Questions/2889_pivot_table.py)
+
+`.pivot()` reshapes long data into wide data: pick one column to become the new row index, another to become the new column headers, and a third to fill in the actual values. Turns repeated rows into a proper grid.
+
+```python
+def pivotTable(weather: pd.DataFrame) -> pd.DataFrame:
+    return weather.pivot(index='month', columns='city', values='temperature')
+```
+
+So a table with one row per (month, city, temperature) combo becomes a grid with months as rows, cities as columns, and temperature filling the cells.
+
+### [2890. Reshape Data: Melt](./LC_Questions/2890_melt_table.py)
+
+`.melt()` is the reverse of pivot, it takes wide data (lots of columns) and turns it into long data (fewer columns, more rows). `id_vars` is the column(s) to keep as-is, the rest get collapsed into a `var_name` (what the column used to be called) and a `value_name` (what value was in that column).
+
+```python
+def meltTable(report: pd.DataFrame) -> pd.DataFrame:
+    return report.melt(
+        id_vars=['product'],
+        var_name='quarter',
+        value_name='sales'
+    )
+```
+
+So columns like `Q1`, `Q2`, `Q3`, `Q4` become rows instead, each with a `quarter` label and a `sales` value, keeping `product` fixed per row.
+
+### [2891. Method Chaining](./LC_Questions/2891_find_heavy_animals.py)
+
+`.sort_values('col', ascending=False)` sorts the dataframe by a column, biggest first when `ascending=False`. Method chaining just means calling several operations back to back on the same line, filter then sort then select, instead of storing each step in its own variable.
+
+```python
+def findHeavyAnimals(animals: pd.DataFrame) -> pd.DataFrame:
+    return animals[animals['weight'] > 100].sort_values('weight', ascending=False)[['name']]
+```
+
+Filter to animals over 100 weight, sort heaviest to lightest, then keep only the `name` column, all in one chained line.
