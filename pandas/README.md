@@ -286,7 +286,7 @@ after drop_duplicates():
 
 Pandas problems from LeetCode, practiced alongside the video content. Solutions live in [`LC_Questions/`](./LC_Questions).
 
-### [595. Big Countries](./LC_Questions/595_big_countries.py)
+### [595. Big Countries](./LC_Questions/595_%20Big_Countries.py)
 
 Video walkthrough: [LeetCode 595 - Big Countries](https://youtu.be/VXtjG_GzO7Q?si=32zj5VXgKL4BGsBE)
 
@@ -297,7 +297,16 @@ def big_countries(world: pd.DataFrame) -> pd.DataFrame:
 
 A country counts as "big" if population is at least 25,000,000 **or** area is at least 3,000,000. Straightforward use of the `|` operator covered above, filter first with the OR condition, then select just the columns the problem wants.
 
-### [2879. Display the First Three Rows](./LC_Questions/2879_select_first_rows.py)
+### [2878. Get the Size of a DataFrame](./LC_Questions/2878_size_of%20data%20frame.py)
+
+`.shape` is a property (not a method, so no parentheses) that returns a tuple of `(rows, columns)` for a dataframe or series. Quick way to check dimensions without counting anything manually.
+
+```python
+def getDataframeSize(players: pd.DataFrame) -> List[int]:
+    return list(players.shape)
+```
+
+### [2879. Display the First Three Rows](./LC_Questions/2879_display_the%20first_3_rows.py)
 
 ```python
 def selectFirstRows(employees: pd.DataFrame) -> pd.DataFrame:
@@ -306,7 +315,7 @@ def selectFirstRows(employees: pd.DataFrame) -> pd.DataFrame:
 
 `.head(n)` grabs the first n rows, the pandas equivalent of `LIMIT 3` in SQL. About as simple as these problems get.
 
-### [2880. Select Data](./LC_Questions/2880_select_data.py)
+### [2880. Select Data](./LC_Questions/2880_selecting_data.py)
 
 ```python
 def selectData(students: pd.DataFrame) -> pd.DataFrame:
@@ -315,7 +324,7 @@ def selectData(students: pd.DataFrame) -> pd.DataFrame:
 
 Filter rows first with a condition, then chain `[[...]]` to select just the columns you want, same pattern from the selection table earlier, just filter + column select combined in one line.
 
-### [2881. Create a New Column](./LC_Questions/2881_create_bonus_column.py)
+### [2881. Create a New Column](./LC_Questions/2881_create_new_column.py)
 
 ```python
 def createBonusColumn(employees: pd.DataFrame) -> pd.DataFrame:
@@ -325,7 +334,7 @@ def createBonusColumn(employees: pd.DataFrame) -> pd.DataFrame:
 
 Assigning to a new column key adds it to the dataframe, same pattern as the `df["job"] = [...]` example earlier in these notes.
 
-### [2882. Drop Duplicate Rows](./LC_Questions/2882_drop_duplicate_emails.py)
+### [2882. Drop Duplicate Rows](./LC_Questions/2882_drop_duplicate_row.py)
 
 ```python
 def dropDuplicateEmails(customers: pd.DataFrame) -> pd.DataFrame:
@@ -343,7 +352,7 @@ def dropMissingData(students: pd.DataFrame) -> pd.DataFrame:
 
 Same idea as `dropna()` from the cleaning section, `subset` limits the missing-value check to just the `name` column instead of scanning the whole dataframe.
 
-### [2884. Modify Columns](./LC_Questions/2884_modify_salary_column.py)
+### [2884. Modify Columns](./LC_Questions/2884_modify_columns.py)
 
 ```python
 def modifySalaryColumn(employees: pd.DataFrame) -> pd.DataFrame:
@@ -365,7 +374,7 @@ def renameColumns(students: pd.DataFrame) -> pd.DataFrame:
                                      'age': 'age_in_years'})
 ```
 
-### [2886. Change Data Type](./LC_Questions/2886_change_datatype.py)
+### [2886. Change Data Type](./LC_Questions/2886_change_type.py)
 
 ```python
 def changeDatatype(students: pd.DataFrame) -> pd.DataFrame:
@@ -375,7 +384,7 @@ def changeDatatype(students: pd.DataFrame) -> pd.DataFrame:
 
 Same `.astype()` used earlier to convert `Legendary` to bool, here converting a column to `int` instead.
 
-### [2887. Fill Missing Data](./LC_Questions/2887_fill_missing_values.py)
+### [2887. Fill Missing Data](./LC_Questions/2887_fill_missing_data.py)
 
 ```python
 def fillMissingValues(products: pd.DataFrame) -> pd.DataFrame:
@@ -385,7 +394,7 @@ def fillMissingValues(products: pd.DataFrame) -> pd.DataFrame:
 
 Same `.fillna()` from the cleaning section, this time filling a single column directly with a scalar (0) instead of passing a dict of column-to-value mappings.
 
-### [2888. Reshape Data: Concatenate](./LC_Questions/2888_concatenate_tables.py)
+### [2888. Reshape Data: Concatenate](./LC_Questions/2888_reshape_data.py)
 
 ```python
 def concatenateTables(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
@@ -395,7 +404,7 @@ def concatenateTables(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
 
 Same `pd.concat()` used to add new rows earlier, just stacking two full dataframes on top of each other here instead of a dataframe and a couple of new rows.
 
-### [2889. Reshape Data: Pivot](./LC_Questions/2889_pivot_table.py)
+### [2889. Reshape Data: Pivot](./LC_Questions/2889_pivot.py)
 
 `.pivot()` reshapes long data into wide data: pick one column to become the new row index, another to become the new column headers, and a third to fill in the actual values. Turns repeated rows into a proper grid.
 
@@ -406,7 +415,7 @@ def pivotTable(weather: pd.DataFrame) -> pd.DataFrame:
 
 So a table with one row per (month, city, temperature) combo becomes a grid with months as rows, cities as columns, and temperature filling the cells.
 
-### [2890. Reshape Data: Melt](./LC_Questions/2890_melt_table.py)
+### [2890. Reshape Data: Melt](./LC_Questions/2890_melt.py)
 
 `.melt()` is the reverse of pivot, it takes wide data (lots of columns) and turns it into long data (fewer columns, more rows). `id_vars` is the column(s) to keep as-is, the rest get collapsed into a `var_name` (what the column used to be called) and a `value_name` (what value was in that column).
 
@@ -421,7 +430,7 @@ def meltTable(report: pd.DataFrame) -> pd.DataFrame:
 
 So columns like `Q1`, `Q2`, `Q3`, `Q4` become rows instead, each with a `quarter` label and a `sales` value, keeping `product` fixed per row.
 
-### [2891. Method Chaining](./LC_Questions/2891_find_heavy_animals.py)
+### [2891. Method Chaining](./LC_Questions/2891_method_chaining.py)
 
 `.sort_values('col', ascending=False)` sorts the dataframe by a column, biggest first when `ascending=False`. Method chaining just means calling several operations back to back on the same line, filter then sort then select, instead of storing each step in its own variable.
 
